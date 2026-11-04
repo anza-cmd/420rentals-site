@@ -11,3 +11,5 @@ Installation
 The importer intentionally creates/updates products as Draft unless the CSV Published field is 1. The supplied CSV has products unpublished so you can review pricing, legal/compliance, images, descriptions and availability first.
 
 The plugin does not process payments, orders, delivery, age verification or rental scheduling. It is a catalogue importer only.
+
+v1.1.0: Brand is now assigned to WooCommerce's native Brands taxonomy (product_brand) if it is enabled on the site, creating new brand terms automatically. If Brands isn't enabled, brand still gets stored as private product metadata only, same as before.

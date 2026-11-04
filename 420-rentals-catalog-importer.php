@@ -2,7 +2,7 @@
 /**
  * Plugin Name: 420 Rentals Catalog Importer
  * Description: Imports the 420 Rentals WooCommerce catalogue CSV and creates/updates products by SKU. Imports as Draft by default.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: 420 Rentals
  * Requires Plugins: woocommerce
  */
@@ -29,7 +29,7 @@ class Rentals_420_Catalog_Importer {
         wp_nonce_field('rr_import_catalog');
         echo '<input type="file" name="catalog_csv" accept=".csv" required> ';
         echo '<button class="button button-primary" name="rr_import" value="1">Import / Update Catalogue</button></form>';
-        echo '<h2>Safety defaults</h2><ul><li>CSV rows default to Draft.</li><li>Existing products are matched by SKU.</li><li>No orders, payments or delivery settings are changed.</li><li>Supplier cost is stored as private product metadata.</li></ul></div>';
+        echo '<h2>Safety defaults</h2><ul><li>CSV rows default to Draft.</li><li>Existing products are matched by SKU.</li><li>No orders, payments or delivery settings are changed.</li><li>Supplier cost is stored as private product metadata.</li><li>Brand is set on WooCommerce\'s native Brands taxonomy (if enabled); terms are created automatically.</li></ul></div>';
     }
     private function import_csv($file){
         if (!$file || !empty($file['error'])) return 'CSV upload failed.';
@@ -61,6 +61,11 @@ class Rentals_420_Catalog_Importer {
             // Categories are created if needed.
             $cats=array_filter(array_map('trim',preg_split('/[,|]/',$get('categories'))));
             if($cats) wp_set_object_terms($saved,$cats,'product_cat',false);
+            // Brand: use WooCommerce's native Brands taxonomy if present; created if needed.
+            if (taxonomy_exists('product_brand')) {
+                $brands=array_filter(array_map('trim',preg_split('/[,|]/',$get('brand'))));
+                if($brands) wp_set_object_terms($saved,$brands,'product_brand',false);
+            }
             $count++; if($is_new)$created++;else$updated++;
         }
         fclose($fh); return "Processed {$count} rows: {$created} created, {$updated} updated, {$skipped} skipped.";
