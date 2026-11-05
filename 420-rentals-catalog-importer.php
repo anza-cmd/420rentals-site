@@ -2,7 +2,7 @@
 /**
  * Plugin Name: 420 Rentals Catalog Importer
  * Description: Imports the 420 Rentals WooCommerce catalogue CSV and creates/updates products by SKU. Imports as Draft by default.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: 420 Rentals
  * Requires Plugins: woocommerce
  */
@@ -114,6 +114,9 @@ class Rentals_420_Catalog_Importer {
             $product->set_description($get('description'));
             $product->set_catalog_visibility($get('catalog visibility') ?: 'visible');
             $product->set_stock_status($get('stock status')==='outofstock'?'outofstock':'instock');
+            // Optional real stock quantity: if the CSV has a numeric "Stock quantity", WooCommerce tracks it (status follows the count).
+            $qty=$get('stock quantity');
+            if($qty!=='' && is_numeric($qty)){ $product->set_manage_stock(true); $product->set_stock_quantity((int)$qty); }
             $product->set_tax_status($get('tax status')==='none'?'none':'taxable');
             $saved=$product->save();
             update_post_meta($saved,'_420_rentals_brand',$get('brand'));
