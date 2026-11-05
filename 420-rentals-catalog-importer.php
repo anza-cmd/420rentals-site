@@ -2,7 +2,7 @@
 /**
  * Plugin Name: 420 Rentals Catalog Importer
  * Description: Imports the 420 Rentals WooCommerce catalogue CSV and creates/updates products by SKU. Imports as Draft by default.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: 420 Rentals
  * Requires Plugins: woocommerce
  */
@@ -34,8 +34,8 @@ class Rentals_420_Catalog_Importer {
         echo '<button class="button button-primary" name="rr_import" value="1">Import / Update Catalogue</button></form>';
         echo '<h2>Safety defaults</h2><ul><li>CSV rows default to Draft.</li><li>Existing products are matched by SKU.</li><li>No orders, payments or delivery settings are changed.</li><li>Supplier cost is stored as private product metadata.</li><li>Brand is set on WooCommerce\'s native Brands taxonomy (if enabled); terms are created automatically.</li></ul>';
 
-        echo '<hr><h2>Bundled Product Images (DynaVap M 7 family)</h2>';
-        echo '<p>Attaches the product photography bundled with this plugin to the 5 M 7 / M 7 XL SKUs by matching on SKU. Images ship inside the plugin\'s own <code>images/</code> folder — nothing to upload here.</p>';
+        echo '<hr><h2>Bundled Product Images (DynaVap)</h2>';
+        echo '<p>Attaches the product photography bundled with this plugin to the 5 M 7 / M 7 XL SKUs and 9 accessory SKUs (torch, DynaMag, DynaWax, caps, CCDs, O-rings, mouthpiece) by matching on SKU. Images ship inside the plugin\'s own <code>images/</code> folder — nothing to upload here.</p>';
         if ($img_result) echo '<div class="notice notice-info"><p>'.nl2br(esc_html($img_result)).'</p></div>';
         echo '<form method="post">';
         wp_nonce_field('rr_import_images');
@@ -67,6 +67,15 @@ class Rentals_420_Catalog_Importer {
         $sets = [
             'm7' => ['m7-capped-front.png','m7-capped-back.png','m7-uncapped-front.png','m7-uncapped-back.png','m7-stem-front.png','m7-stem-back.png','m7-condenser.png','m7-tip.png','m7-breakdown.png','m7-horizontal.png'],
             'm7-xl' => ['m7-xl-capped.png','m7-xl-capped-horizontal.png','m7-xl-uncapped.png','m7-xl-mouthpiece.png','m7-xl-mouthpiece-and-condenser.png','m7-xl-condenser.png','m7-xl-breakdown.png'],
+            'fat-mouthpiece' => ['fat-mouthpiece.jpg'],
+            'honest-torch' => ['honest-torch-clear.jpg','honest-torch-green.jpg'],
+            'dynamag' => ['dynamag.jpg'],
+            'dynawax' => ['dynawax.jpg'],
+            'high-temp-o-ring-kit' => ['high-temp-o-ring-kit.jpg'],
+            'ccd-stainless-steel' => ['ccd-stainless-steel-3-pack.jpg'],
+            'ccd-titanium' => ['ccd-titanium-3-pack.jpg'],
+            'armored-cap' => ['armored-cap.jpg'],
+            'captive-cap' => ['captive-cap.jpg'],
         ];
         $manifest = [
             '420-VCM853731500F'     => 'm7',
@@ -74,6 +83,15 @@ class Rentals_420_Catalog_Importer {
             '420-VCM853731500FXL'   => 'm7-xl',
             '420-VCM853731500FXLEI' => 'm7-xl',
             '420-VCM853731500FXLST' => 'm7-xl',
+            '420-DV-PRT-MP-FAT'       => 'fat-mouthpiece',
+            '420-DV-TRCH-HONEST'      => 'honest-torch',
+            '420-DV-PRT-DYNAMAG'      => 'dynamag',
+            '420-DV-PRT-DYNAWAX'      => 'dynawax',
+            '420-DV-PRT-ORING-HT'     => 'high-temp-o-ring-kit',
+            '420-DV-PRT-CCD-SS3'      => 'ccd-stainless-steel',
+            '420-DV-PRT-CCD-TI3'      => 'ccd-titanium',
+            '420-DV-PRT-CAP-ARMORED'  => 'armored-cap',
+            '420-DV-PRT-CAP-CAPTIVE'  => 'captive-cap',
         ];
         $lines = [];
         foreach ($manifest as $sku => $set_key) {
