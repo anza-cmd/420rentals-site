@@ -1,0 +1,53 @@
+/* 420 Rentals Site Pages - scoped to .r420 so it never fights the theme */
+.r420{
+  --r-sky1:#0E1830; --r-sky2:#1C2E52; --r-sand:#F4EFE4; --r-card:#FFFDF7; --r-ink:#161A22;
+  --r-soft:#535A6B; --r-line:#DCD3BE; --r-rust:#BE5029; --r-rust-dark:#98401F; --r-gold:#C6A24C;
+  --r-skytext:#DCE3F2; --r-radius:18px;
+  color:var(--r-ink); line-height:1.55; font-size:17px;
+}
+.r420 *,.r420 *::before,.r420 *::after{box-sizing:border-box}
+.r420 h1,.r420 h2,.r420 h3{line-height:1.15; letter-spacing:-0.01em; margin:0 0 .5em}
+.r420 p{margin:0 0 1em}
+.r420 a{color:var(--r-rust-dark)}
+.r420-section{padding:clamp(28px,5vw,56px) 0}
+.r420-section h2{font-size:clamp(26px,4vw,38px)}
+.r420-kicker{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--r-gold); margin-bottom:14px}
+.r420-hero{background:linear-gradient(160deg,var(--r-sky1),var(--r-sky2)); color:var(--r-skytext); border-radius:var(--r-radius); padding:clamp(32px,7vw,84px) clamp(20px,5vw,64px); margin-bottom:12px}
+.r420-hero h1{font-size:clamp(38px,7vw,72px); color:#fff}
+.r420-hero .r420-lead{font-size:clamp(18px,2.4vw,24px); color:#fff; max-width:640px}
+.r420-hero .r420-sub{color:var(--r-skytext); opacity:.85; max-width:560px}
+.r420-btns{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px}
+.r420 .r420-btn{display:inline-block; padding:15px 26px; border-radius:999px; font-weight:600; font-size:15px; letter-spacing:.04em; text-decoration:none; text-align:center; min-width:180px; border:2px solid transparent; transition:transform .15s ease, background .15s ease}
+.r420 .r420-btn:hover{transform:translateY(-1px)}
+.r420 .r420-btn-primary{background:var(--r-rust); color:#fff}
+.r420 .r420-btn-primary:hover{background:var(--r-rust-dark)}
+.r420 .r420-btn-ghost{border-color:currentColor; color:#fff}
+.r420-section .r420-btn-ghost{color:var(--r-ink)}
+.r420 .r420-btn-wa{background:#1FA855; color:#fff}
+.r420-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.r420-card{background:var(--r-card); border:1px solid var(--r-line); border-radius:var(--r-radius); padding:24px}
+.r420-card h3{font-size:22px}
+.r420-card .r420-tag{color:var(--r-soft); margin-bottom:16px}
+.r420-card-muted{background:transparent; border-style:dashed; color:var(--r-soft)}
+.r420-steps{counter-reset:s; list-style:none; margin:0; padding:0; display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.r420-steps li{background:var(--r-card); border:1px solid var(--r-line); border-radius:var(--r-radius); padding:22px}
+.r420-steps .r420-n{font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--r-rust); font-size:13px; letter-spacing:.12em}
+.r420-steps strong{display:block; font-size:20px; margin:6px 0}
+.r420-band{background:var(--r-sand); border-radius:var(--r-radius); padding:clamp(24px,5vw,48px)}
+.r420-list{margin:0 0 1em 1.1em; padding:0}
+.r420-list li{margin:.35em 0}
+.r420-table{width:100%; border-collapse:collapse; background:var(--r-card); border-radius:12px; overflow:hidden}
+.r420-table th,.r420-table td{padding:12px 14px; border-bottom:1px solid var(--r-line); text-align:left}
+.r420-table th{background:var(--r-sand); font-size:14px}
+.r420-notice{border:2px dashed var(--r-gold); background:#FFF9E8; border-radius:12px; padding:16px 18px; margin:0 0 1.2em}
+.r420-badge{display:inline-block; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11px; letter-spacing:.1em; padding:3px 8px; border-radius:4px; background:var(--r-ink); color:#fff; margin-right:8px; vertical-align:middle}
+.r420-faq details{background:var(--r-card); border:1px solid var(--r-line); border-radius:12px; padding:14px 18px; margin:0 0 10px}
+.r420-faq summary{cursor:pointer; font-weight:600}
+.r420-faq details p{margin:10px 0 0}
+.r420-legal-list{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.r420-legal-list li{background:var(--r-card); border:1px solid var(--r-line); border-radius:10px; padding:12px 16px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.r420-muted{color:var(--r-soft)}
+/* site-wide bits (footer note + WhatsApp button) */
+.r420-foot{background:var(--r-sky1); color:var(--r-skytext); font-size:13px; line-height:1.5; padding:14px clamp(16px,4vw,48px); text-align:center}
+.r420-wa{position:fixed; right:16px; bottom:16px; z-index:9999; background:#1FA855; color:#fff !important; text-decoration:none; font-weight:600; padding:13px 18px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,.25)}
+@media (max-width:600px){ .r420 .r420-btn{width:100%} .r420-wa{left:16px; right:16px; text-align:center} }
