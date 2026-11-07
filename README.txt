@@ -22,3 +22,5 @@ Appears in Plugins as its own plugin and must be activated separately. Settings 
 v1.4.0: "Import Bundled Product Images" now also covers 9 accessory SKUs (Fat Mouthpiece, Honest Torch clear+green, DynaMag, DynaWax, High-Temp O-Ring Kit, Stainless Steel and Titanium CCD, Armored Cap, Captive Cap). Photos live in images/<product>/. Products without a bundled photo are untouched.
 
 v1.3.0: The catalogue CSV may now include an optional "Stock quantity" column. When it holds a number, WooCommerce stock management is switched on for that product and the quantity is set (status then follows the count, so 0 = out of stock). Rows without the column or with it blank behave exactly as before.
+
+v1.1.0 (Site Pages): setup now takes over an existing starter page that holds a core slug (e.g. the old Home) instead of blocking; the old content is kept in page meta _r420_previous_content. Policy pages still block rather than overwrite.

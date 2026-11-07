@@ -2,7 +2,7 @@
 /**
  * Plugin Name: 420 Rentals Site Pages
  * Description: Creates and manages the customer-facing 420 Rentals pages (Home, Rent a Device, How It Works, Travellers, FAQ, Contact, Legal), the main menu, contact details and the WhatsApp button. Copy comes from the brand brief only - no invented prices, specifications or legal wording. Anything not yet connected is labelled as such.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: 420 Rentals
  */
 if (!defined('ABSPATH')) exit;
@@ -364,6 +364,20 @@ class R420_Site_Pages {
                 }
             }
             $existing = get_page_by_path($def['slug'], OBJECT, 'page');
+            if ($existing && isset($this->core_pages()[$key])) {
+                // Core site page: take over the existing starter page instead of blocking.
+                // The old content is kept in post meta so nothing is lost.
+                update_post_meta($existing->ID, '_r420_previous_content', $existing->post_content);
+                $r = wp_update_post([
+                    'ID'=>$existing->ID, 'post_title'=>wp_strip_all_tags($def['title']),
+                    'post_content'=>$def['content'], 'post_status'=>$def['status'],
+                ], true);
+                if (is_wp_error($r)) { $log[] = 'Could not take over "'.$existing->post_title.'": '.$r->get_error_message(); continue; }
+                update_post_meta($existing->ID, self::KEY, $key);
+                if (!empty($def['hide_title'])) update_post_meta($existing->ID, '_r420_hide_title', 1);
+                $log[] = 'Took over the existing "'.$existing->post_title.'" page at /'.$def['slug'].'/ and replaced its content (old content saved in page meta _r420_previous_content).';
+                continue;
+            }
             if ($existing) {
                 $log[] = 'BLOCKED: "'.$def['title'].'" needs /'.$def['slug'].'/ but an existing page ("'.$existing->post_title.'") already uses it. Move that page to Trash, then run setup again.';
                 continue;
